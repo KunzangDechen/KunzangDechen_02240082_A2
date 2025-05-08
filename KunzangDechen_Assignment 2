@@ -1,0 +1,118 @@
+class Games:
+    def __init__(self):
+        self.score = 0
+
+    def run(self):
+        while True:
+            print("Game Menu")
+            print("1. Guess the Number")
+            print("2. Rock Paper Scissors")
+            print("3. Trivia Quiz")
+            print("4. Pokémon Card Binder")
+            print("5. Exit")
+
+            choice = input("Choose a game (1-5): ")
+
+            if choice == "1":
+                s = self.guess_number_game()
+                self.score += s
+            elif choice == "2":
+                s = self.rock_paper_scissors_game()
+                self.score += s
+            elif choice == "3":
+                s = self.trivia_quiz_game()
+                self.score += s
+            elif choice == "4":
+                    from partb import binder_manager
+                    binding = binder_manager()
+                    binding.run()
+            elif choice == "5":
+                print("Your final score is:", self.score)
+                print("Adios!")
+                break
+            else:
+                print("Please enter a number between 1 and 5.")
+
+    def guess_number_game(self):
+        print("Kuzuzangpo to the Guess the Number Game!")
+        number_to_guess = 18
+        attempts = 0
+
+        while True:
+            try:
+                user_guess = int(input("Guess the number (between 1 and 25): "))
+            except ValueError:
+                print("Please enter a valid number.")
+                continue
+
+            attempts += 1
+
+            if user_guess < number_to_guess:
+                print("It's too low! Try again.")
+            elif user_guess > number_to_guess:
+                print("It's too high! Try again.")
+            else:
+                print(f"Correct! You guessed the number in {attempts} attempts.")
+                return 1
+
+    def rock_paper_scissors_game(self):
+        print("Welcome to Rock, Paper, Scissors!")
+        choices = ["rock", "paper", "scissors"]
+        user_choice = input("Choose rock, paper, or scissors: ").lower()
+
+        if user_choice not in choices:
+            print("Invalid choice! Please choose either 'rock', 'paper', or 'scissors'.")
+            return 0
+
+        computer_choice = "paper"
+        print(f"Computer chose: {computer_choice}")
+
+        if user_choice == computer_choice:
+            print("It's a draw!")
+            return 0
+        elif (user_choice == "paper" and computer_choice == "rock") or \
+             (user_choice == "scissors" and computer_choice == "paper") or \
+             (user_choice == "rock" and computer_choice == "scissors"):
+            print("Let's go! You won!")
+            return 1
+        else:
+            print("Sorry, you lost!")
+            return 0
+
+    def trivia_quiz_game(self):
+        print("Welcome to the Trivia Pursuit Quiz Game!")
+
+        questions = [
+            {"category": "GK", "question": "Capital of Bhutan?", "options": ["A) Thimphu", "B) Gelephu", "C) Punakha", "D) Bumthang"], "correct_answer": "A"},
+            {"category": "GK", "question": "Continents?", "options": ["A) 5", "B) 7", "C) 9", "D) 8"], "correct_answer": "B"},
+            {"category": "Science", "question": "What is the largest organ of the body?", "options": ["A) Heart", "B) Kidney", "C) Brain", "D) Skin"], "correct_answer": "D"},
+            {"category": "Science", "question": "Symbol of carbon dioxide?", "options": ["A) CO2", "B) CO5", "C) CO3", "D) CO4"], "correct_answer": "A"},
+            {"category": "EWP", "question": "16A current can hold?", "options": ["A) 800", "B) 2000", "C) 1000", "D) 900"], "correct_answer": "B"},
+            {"category": "EWP", "question": "Tool used to check the presence of voltage?", "options": ["A) Testlamp", "B) Screwdriver", "C) Plier", "D) Soldering iron"], "correct_answer": "A"}
+        ]
+
+        score = 0
+        category = input("Choose a category: GK, Science, or EWP: ").upper()
+
+        if category in ["Gk", "Science", "Ewp"]:
+            for q in questions:
+                if q["category"].lower() == category.lower():
+                    print("\n" + q["question"])
+                    for opt in q["options"]:
+                        print(opt)
+                    user_answer = input("Your answer (A, B, C, or D): ").upper()
+                    if user_answer == q["correct_answer"]:
+                        print("Correct!")
+                        score += 1
+                    else:
+                        print("Incorrect.")
+            print(f"Your total score for {category}: {score}")
+            return score
+        else:
+            print("Wrong Category. Please choose from GK, Science, or EWP.")
+            return 0
+
+game = Games()
+game.run()
+
+
