@@ -23,9 +23,9 @@ class Games:
                 s = self.trivia_quiz_game()
                 self.score += s
             elif choice == "4":
-                    from partb import binder_manager
-                    binding = binder_manager()
-                    binding.run()
+                from partb import binder_manager
+                binding = binder_manager()
+                binding.run()
             elif choice == "5":
                 print("Your final score is:", self.score)
                 print("Adios!")
@@ -85,22 +85,22 @@ class Games:
         questions = [
             {"category": "GK", "question": "Capital of Bhutan?", "options": ["A) Thimphu", "B) Gelephu", "C) Punakha", "D) Bumthang"], "correct_answer": "A"},
             {"category": "GK", "question": "Continents?", "options": ["A) 5", "B) 7", "C) 9", "D) 8"], "correct_answer": "B"},
-            {"category": "Science", "question": "What is the largest organ of the body?", "options": ["A) Heart", "B) Kidney", "C) Brain", "D) Skin"], "correct_answer": "D"},
-            {"category": "Science", "question": "Symbol of carbon dioxide?", "options": ["A) CO2", "B) CO5", "C) CO3", "D) CO4"], "correct_answer": "A"},
+            {"category": "SCIENCE", "question": "What is the largest organ of the body?", "options": ["A) Heart", "B) Kidney", "C) Brain", "D) Skin"], "correct_answer": "D"},
+            {"category": "SCIENCE", "question": "Symbol of carbon dioxide?", "options": ["A) CO2", "B) CO5", "C) CO3", "D) CO4"], "correct_answer": "A"},
             {"category": "EWP", "question": "16A current can hold?", "options": ["A) 800", "B) 2000", "C) 1000", "D) 900"], "correct_answer": "B"},
             {"category": "EWP", "question": "Tool used to check the presence of voltage?", "options": ["A) Testlamp", "B) Screwdriver", "C) Plier", "D) Soldering iron"], "correct_answer": "A"}
         ]
 
         score = 0
-        category = input("Choose a category: GK, Science, or EWP: ").upper()
+        category = input("Choose a category: GK, SCIENCE, or EWP: ").upper().strip()
 
-        if category in ["Gk", "Science", "Ewp"]:
+        if category in ["GK", "SCIENCE", "EWP"]:
             for q in questions:
-                if q["category"].lower() == category.lower():
-                    print("\n" + q["question"])
+                if q["category"] == category:
+                    print(q["question"])
                     for opt in q["options"]:
                         print(opt)
-                    user_answer = input("Your answer (A, B, C, or D): ").upper()
+                    user_answer = input("Your answer (A, B, C, or D): ").upper().strip()
                     if user_answer == q["correct_answer"]:
                         print("Correct!")
                         score += 1
@@ -109,10 +109,10 @@ class Games:
             print(f"Your total score for {category}: {score}")
             return score
         else:
-            print("Wrong Category. Please choose from GK, Science, or EWP.")
+            print("Wrong Category. Please choose from GK, SCIENCE, or EWP.")
             return 0
 
+
+# Start the game
 game = Games()
 game.run()
-
-
